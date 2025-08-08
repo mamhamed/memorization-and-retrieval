@@ -116,5 +116,6 @@ class ModelTrainer:
         trainer.train()
         ift_model_path = self.output_dir / "ift_model"
         trainer.save_model(ift_model_path)
+        self.tokenizer.save_pretrained(ift_model_path)
         return str(ift_model_path)
 
