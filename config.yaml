@@ -1,0 +1,71 @@
+# config.yaml - Configuration file for experiments
+
+# Dataset configurations
+dataset_sizes: [1000, 5000, 25000]  # Profile counts to test
+model_sizes: 
+  - "microsoft/DialoGPT-small"    # ~117M parameters (for testing)
+  - "microsoft/DialoGPT-medium"   # ~345M parameters  
+  - "meta-llama/Llama-2-7b-hf"   # 7B parameters
+  - "meta-llama/Meta-Llama-3-8B" # 8B parameters
+
+# Data diversification
+num_variations: [1, 5, 10]  # Number of format variations for CPT
+
+# Training hyperparameters
+batch_size: 8
+max_length: 2048
+learning_rate_cpt: 1e-4
+learning_rate_ift: 5e-5
+num_epochs_cpt: 3
+num_epochs_ift: 2
+
+# Output configuration
+output_dir: "outputs"
+
+# Vocabulary sizes for comparison
+vocab_sizes: [32000, 128000]
+
+# Hardware configuration
+use_gpu: True 
+num_gpus: 1
+gradient_accumulation_steps: 4
+
+# Evaluation configuration
+eval_batch_size: 16
+max_eval_samples: 1000
+
+# Experiment-specific settings
+scaling_experiment:
+  enable: true
+  dataset_sizes: [1000, 5000, 25000, 100000]
+  model_sizes: ["microsoft/DialoGPT-small", "microsoft/DialoGPT-medium"]
+
+diversification_experiment:
+  enable: true
+  variations: [1, 2, 5, 10]
+  base_dataset_size: 5000
+
+cot_experiment:
+  enable: true
+  cot_ratio: 0.5  # 50% of training data with CoT
+  dataset_size: 5000
+
+forgetting_experiment:
+  enable: true
+  benchmark_tasks: ["arc_challenge", "hellaswag", "natural_questions", "winogrande", "triviaqa"]
+  dataset_sizes: [1000, 5000, 10000]
+
+vocabulary_experiment:
+  enable: true
+  models: 
+    - name: "Llama2-7B"
+      path: "meta-llama/Llama-2-7b-hf"
+      vocab_size: 32000
+    - name: "Llama3-8B" 
+      path: "meta-llama/Meta-Llama-3-8B"
+      vocab_size: 128000
+
+profile_length_experiment:
+  enable: true
+  dataset_size: 5000
+  length_categories: 5
