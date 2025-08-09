@@ -42,27 +42,34 @@ command_exists() {
 setup_environment() {
     log "Setting up environment..."
     
-    # Check if conda is available
-    if command_exists conda; then
-        info "Using conda for environment management"
-        
-        # Create conda environment if it doesn't exist
-        if ! conda env list | grep -q "^${PYTHON_ENV}"; then
-            log "Creating conda environment: ${PYTHON_ENV}"
-            conda create -n "${PYTHON_ENV}" python=3.9 -y
-        fi
-        
-        # Activate environment
-        source "$(conda info --base)/etc/profile.d/conda.sh"
-        conda activate "${PYTHON_ENV}"
-        
-    elif command_exists python3 && command_exists pip3; then
+    # Check if conda is available 
+    if command_exists python3 && command_exists pip3; then
         info "Using virtual environment with pip3"
         
         # Create virtual environment if it doesn't exist
         if [[ ! -d "${PYTHON_ENV}" ]]; then
             log "Creating virtual environment: ${PYTHON_ENV}"
             python3 -m venv "${PYTHON_ENV}"
+	    # log "Installing required packages..."
+	    pip3 install --upgrade pip
+	    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+	    pip3 install transformers==4.36.0
+	    pip3 install datasets==2.15.0
+	    pip3 install accelerate==0.25.0
+	    pip3 install deepspeed==0.12.6
+	    pip3 install wandb==0.16.1
+	    pip3 install matplotlib==3.8.2
+	    pip3 install seaborn==0.13.0
+	    pip3 install pandas==2.1.4
+	    pip3 install numpy==1.24.4
+	    pip3 install scikit-learn==1.3.2
+	    pip3 install scipy==1.11.4
+	    pip3 install plotly==5.17.0
+	    pip3 install faker==20.1.0
+	    pip3 install jinja2==3.1.2
+	    pip3 install pyyaml==6.0.1
+	    pip3 install tqdm==4.66.1
+
         fi
         
         # Activate environment
@@ -75,24 +82,24 @@ setup_environment() {
     
     # Install required packages
     # log "Installing required packages..."
-    # pip3 install --upgrade pip
-    # pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-    # pip3 install transformers==4.36.0
-    # pip3 install datasets==2.15.0
-    # pip3 install accelerate==0.25.0
-    # pip3 install deepspeed==0.12.6
-    # pip3 install wandb==0.16.1
-    # pip3 install matplotlib==3.8.2
-    # pip3 install seaborn==0.13.0
-    # pip3 install pandas==2.1.4
-    # pip3 install numpy==1.24.4
-    # pip3 install scikit-learn==1.3.2
-    # pip3 install scipy==1.11.4
-    # pip3 install plotly==5.17.0
-    # pip3 install faker==20.1.0
-    # pip3 install jinja2==3.1.2
-    # pip3 install pyyaml==6.0.1
-    # pip3 install tqdm==4.66.1
+    pip3 install --upgrade pip
+    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+    pip3 install transformers==4.36.0
+    pip3 install datasets==2.15.0
+    pip3 install accelerate==0.25.0
+    pip3 install deepspeed==0.12.6
+    pip3 install wandb==0.16.1
+    pip3 install matplotlib==3.8.2
+    pip3 install seaborn==0.13.0
+    pip3 install pandas==2.1.4
+    pip3 install numpy==1.24.4
+    pip3 install scikit-learn==1.3.2
+    pip3 install scipy==1.11.4
+    pip3 install plotly==5.17.0
+    pip3 install faker==20.1.0
+    pip3 install jinja2==3.1.2
+    pip3 install pyyaml==6.0.1
+    pip3 install tqdm==4.66.1
     
     log "Environment setup completed successfully!"
 }
