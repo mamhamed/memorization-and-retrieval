@@ -43,8 +43,8 @@ class VocabExperiment:
         #     ("microsoft/DialoGPT-medium", "128k vocab (simulated)"),
         # ]
         
-        for model_name, description in model_configs:
-            logger.info(f"Testing {description}")
+        for model_name, vocab_size in model_configs:
+            logger.info(f"Testing {model_name}--{vocab_size}")
             
             # Train model
             trainer = ModelTrainer(model_name, f"outputs/vocab_{model_name.replace('/', '_')}")
@@ -60,8 +60,8 @@ class VocabExperiment:
             accuracies = evaluator.evaluate_qa_dataset(test_qa)
             
             results.append({
-                'model_name': model,
-                'vocab_size': description,
+                'model_name': model_name,
+                'vocab_size': vocab_size,
                 'profile_accuracy': accuracies.get('profile', 0),
                 'city_accuracy': accuracies.get('city', 0),
                 'two_hop_accuracy': accuracies.get('two_hop', 0)
