@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -21,4 +21,4 @@ class ExperimentConfig:
     gradient_accumulation_steps: int
     eval_batch_size: int
     max_eval_samples: int
-
+    fsdp_config: Optional[str]=None # path to fsdp config

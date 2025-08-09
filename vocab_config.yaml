@@ -4,9 +4,9 @@
 # dataset_sizes: [1000, 5000, 25000]  # Profile counts to test
 dataset_sizes: [10]
 model_sizes: 
-  - "microsoft/DialoGPT-small"    # ~117M parameters (for testing)
-  - "microsoft/DialoGPT-medium"   # ~345M parameters  
-  - "meta-llama/Llama-2-7b-hf"   # 7B parameters
+#  - "microsoft/DialoGPT-small"    # ~117M parameters (for testing)
+#  - "microsoft/DialoGPT-medium"   # ~345M parameters  
+#  - "meta-llama/Llama-2-7b-hf"   # 7B parameters
   - "meta-llama/Meta-Llama-3-8B" # 8B parameters
 
 # Data diversification
@@ -28,6 +28,7 @@ output_dir: "outputs"
 vocab_sizes: [32000, 128000]
 
 # Hardware configuration
+fsdp_config: ./fsdp_config.json
 use_gpu: true
 num_gpus: 1
 gradient_accumulation_steps: 4

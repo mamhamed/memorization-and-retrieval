@@ -50,7 +50,7 @@ class ExperimentRunner:
                 test_qa = self.data_generator.generate_qa_pairs(test_profiles, cities)
                 
                 # Train model
-                trainer = ModelTrainer(model_size, f"outputs/{model_size}_{dataset_size}")
+                trainer = ModelTrainer(model_size, f"outputs/{model_size}_{dataset_size}", self.config)
                 
                 cpt_dataset = trainer.prepare_cpt_dataset(cpt_data)
                 cpt_model_path = trainer.train_cpt(cpt_dataset, self.config)
@@ -94,7 +94,7 @@ class ExperimentRunner:
             test_qa = self.data_generator.generate_qa_pairs(test_profiles, cities)
             
             # Train model
-            trainer = ModelTrainer("microsoft/DialoGPT-small", f"outputs/diversification_k{k}")
+            trainer = ModelTrainer("microsoft/DialoGPT-small", f"outputs/diversification_k{k}", self.config)
             
             cpt_dataset = trainer.prepare_cpt_dataset(cpt_data)
             cpt_model_path = trainer.train_cpt(cpt_dataset, self.config)
@@ -147,7 +147,7 @@ class ExperimentRunner:
         )
         
         # Train model
-        trainer = ModelTrainer("microsoft/DialoGPT-small", "outputs/cot_experiment")
+        trainer = ModelTrainer("microsoft/DialoGPT-small", "outputs/cot_experiment", self.config)
         
         cpt_dataset = trainer.prepare_cpt_dataset(cpt_data)
         cpt_model_path = trainer.train_cpt(cpt_dataset, self.config)
@@ -196,7 +196,7 @@ class ExperimentRunner:
                 cpt_data = self.data_generator.diversify_cpt_data(profiles, cities)
                 ift_data = self.data_generator.generate_qa_pairs(profiles, cities)
                 
-                trainer = ModelTrainer(model_size, f"outputs/forgetting_{model_size}_{dataset_size}")
+                trainer = ModelTrainer(model_size, f"outputs/forgetting_{model_size}_{dataset_size}", self.config)
                 
                 cpt_dataset = trainer.prepare_cpt_dataset(cpt_data)
                 cpt_model_path = trainer.train_cpt(cpt_dataset, self.config)

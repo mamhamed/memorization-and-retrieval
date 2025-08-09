@@ -26,6 +26,7 @@ output_dir: "outputs"
 vocab_sizes: [32000, 128000]
 
 # Hardware configuration
+fsdp_config: ./fsdp_config.json
 use_gpu: True 
 num_gpus: 1
 gradient_accumulation_steps: 4

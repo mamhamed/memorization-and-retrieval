@@ -47,13 +47,13 @@ class VocabExperiment:
             logger.info(f"Testing {model_name}--{vocab_size}")
             
             # Train model
-            trainer = ModelTrainer(model_name, f"outputs/vocab_{model_name.replace('/', '_')}")
+            trainer = ModelTrainer(model_name, f"outputs/vocab_{model_name.replace('/', '_')}", self.config)
             
             cpt_dataset = trainer.prepare_cpt_dataset(cpt_data)
-            cpt_model_path = trainer.train_cpt(cpt_dataset, self.config)
+            cpt_model_path = trainer.train_cpt(cpt_dataset)
             
             ift_dataset = trainer.prepare_ift_dataset(ift_data)
-            final_model_path = trainer.train_ift(ift_dataset, cpt_model_path, self.config)
+            final_model_path = trainer.train_ift(ift_dataset, cpt_model_path)
             
             # Evaluate
             evaluator = Evaluator(final_model_path)

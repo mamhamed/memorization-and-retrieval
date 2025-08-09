@@ -100,7 +100,6 @@ setup_environment() {
     # pip3 install jinja2==3.1.2
     # pip3 install pyyaml==6.0.1
     # pip3 install tqdm==4.66.1
-    
     log "Environment setup completed successfully!"
 }
 
@@ -266,7 +265,8 @@ run_main_experiments() {
             ;;
         "vocabulary")
             info "Running vocabulary size experiments..."
-            python3 -m main --experiment vocab --config "${CONFIG_FILE}"
+            # python3 -m main --experiment vocab --config "${CONFIG_FILE}"
+            torchrun --nproc_per_node=1 --nnodes=1 main.py --experiment vocab --config "${CONFIG_FILE}"
             ;;
         "length")
             info "Running profile length experiments..."
