@@ -1,4 +1,6 @@
 import argparse
+import logging
+import os
 import yaml
 from pathlib import Path
 
@@ -7,8 +9,11 @@ from model.experiment_runner import ExperimentRunner
 from model.vocab_experiment import VocabExperiment
 
 
-import os
 os.environ["WANDB_DISABLED"] = "true"
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def main():
     """Main execution function"""
