@@ -34,10 +34,14 @@ class VocabExperiment:
         results = []
         
         # Test different model configurations
-        model_configs = [
-            ("microsoft/DialoGPT-small", "32k vocab (simulated)"),
-            ("microsoft/DialoGPT-medium", "128k vocab (simulated)"),
-        ]
+        model_configs = []
+        for m in self.config.model_sizes:
+            for v in self.config.vocab_sizes:
+                model_configs.append((m, v))
+        # model_configs = [
+        #     ("microsoft/DialoGPT-small", "32k vocab (simulated)"),
+        #     ("microsoft/DialoGPT-medium", "128k vocab (simulated)"),
+        # ]
         
         for model_name, description in model_configs:
             logger.info(f"Testing {description}")
@@ -56,7 +60,8 @@ class VocabExperiment:
             accuracies = evaluator.evaluate_qa_dataset(test_qa)
             
             results.append({
-                'model': description,
+                'model_name': model,
+                'vocab_size': description,
                 'profile_accuracy': accuracies.get('profile', 0),
                 'city_accuracy': accuracies.get('city', 0),
                 'two_hop_accuracy': accuracies.get('two_hop', 0)
