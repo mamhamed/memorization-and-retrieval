@@ -1,0 +1,16 @@
+{
+  "vocabulary": [
+    {
+      "model": "32k vocab (simulated)",
+      "profile_accuracy": 0.02857142857142857,
+      "city_accuracy": 0.125,
+      "two_hop_accuracy": 0.0
+    },
+    {
+      "model": "128k vocab (simulated)",
+      "profile_accuracy": 0.04285714285714286,
+      "city_accuracy": 0.0,
+      "two_hop_accuracy": 0.0
+    }
+  ]
+}
