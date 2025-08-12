@@ -1,0 +1,17 @@
+{
+  "fsdp_offload_params": "true",
+  "fsdp_cpu_ram_efficient_loading": "true",
+  
+  "fsdp_transformer_layer_cls_to_wrap": [
+    "LlamaDecoderLayer"
+  ],
+  
+  "fsdp_backward_prefetch": "backward_post",
+  "fsdp_forward_prefetch": "false",
+  "fsdp_use_orig_params": "false",
+  
+  "fsdp_sharding_strategy": "FULL_SHARD",
+  "fsdp_state_dict_type": "SHARDED_STATE_DICT",
+  "fsdp_sync_module_states": "true",
+  "fsdp_limit_all_gathers": "true"
+}
