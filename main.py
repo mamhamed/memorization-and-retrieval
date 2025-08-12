@@ -3,6 +3,7 @@ import logging
 import os
 import yaml
 from pathlib import Path
+import torch.distributed as dist
 
 from config.experiment import ExperimentConfig
 from model.experiment_runner import ExperimentRunner
@@ -14,6 +15,11 @@ os.environ["WANDB_DISABLED"] = "true"
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def init_dist():
+    dist.init_process_group(backend="nccl")
+    torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
 
 def main():
     """Main execution function"""
@@ -56,6 +62,11 @@ def main():
     # Create output directories
     Path(config.output_dir).mkdir(exist_ok=True)
     Path("plots").mkdir(exist_ok=True)
+
+    # Setup Dist training
+    init_dist()
+    rank = dist.get_rank()
+    device = torch.device("cuda", int(os.environ["LOCAL_RANK"]))
     
     # Initialize experiment runner
     runner = ExperimentRunner(config)

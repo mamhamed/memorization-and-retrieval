@@ -88,6 +88,7 @@ class ModelTrainer:
             train_dataset=dataset,
             data_collator=data_collator,
         )
+        trainer.model.config.use_cache = False  # re-assert (HF can flip it)
         
         trainer.train()
         cpt_model_path = self.output_dir / "cpt_model"
