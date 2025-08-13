@@ -1,8 +1,10 @@
 {
   "fsdp_offload_params": "true",
   "fsdp_cpu_ram_efficient_loading": "true",
-  "fsdp_min_num_params": 50000000,
-  
+  "fsdp_transformer_layer_cls_to_wrap": [
+        "LlamaDecoderLayer", "LlamaMLP"
+  ],  
+
   "fsdp_backward_prefetch": "backward_post",
   "fsdp_forward_prefetch": "false",
   "fsdp_use_orig_params": "false",
