@@ -82,24 +82,24 @@ setup_environment() {
     
     # Install required packages
     # log "Installing required packages..."
-    pip3 install --upgrade pip
-    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-    pip3 install transformers==4.36.0
-    pip3 install datasets==2.15.0
-    pip3 install accelerate==0.25.0
-    pip3 install deepspeed==0.12.6
-    pip3 install wandb==0.16.1
-    pip3 install matplotlib==3.8.2
-    pip3 install seaborn==0.13.0
-    pip3 install pandas==2.1.4
-    pip3 install numpy==1.24.4
-    pip3 install scikit-learn==1.3.2
-    pip3 install scipy==1.11.4
-    pip3 install plotly==5.17.0
-    pip3 install faker==20.1.0
-    pip3 install jinja2==3.1.2
-    pip3 install pyyaml==6.0.1
-    pip3 install tqdm==4.66.1
+    # pip3 install --upgrade pip
+    # pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+    # pip3 install transformers==4.36.0
+    # pip3 install datasets==2.15.0
+    # pip3 install accelerate==0.25.0
+    # pip3 install deepspeed==0.12.6
+    # pip3 install wandb==0.16.1
+    # pip3 install matplotlib==3.8.2
+    # pip3 install seaborn==0.13.0
+    # pip3 install pandas==2.1.4
+    # pip3 install numpy==1.24.4
+    # pip3 install scikit-learn==1.3.2
+    # pip3 install scipy==1.11.4
+    # pip3 install plotly==5.17.0
+    # pip3 install faker==20.1.0
+    # pip3 install jinja2==3.1.2
+    # pip3 install pyyaml==6.0.1
+    # pip3 install tqdm==4.66.1
     log "Environment setup completed successfully!"
 }
 
@@ -266,6 +266,8 @@ run_main_experiments() {
         "vocabulary")
             info "Running vocabulary size experiments..."
             # python3 -m main --experiment vocab --config "${CONFIG_FILE}"
+            export CUDA_VISIBLE_DEVICES=0,1,2,3
+            export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
             torchrun --nproc_per_node=4 --nnodes=1 --master_port=29500 main.py --experiment vocab --config "${CONFIG_FILE}"
             ;;
         "length")

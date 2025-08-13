@@ -3,6 +3,7 @@ import logging
 import os
 import yaml
 from pathlib import Path
+import torch
 import torch.distributed as dist
 
 from config.experiment import ExperimentConfig
@@ -11,6 +12,7 @@ from model.vocab_experiment import VocabExperiment
 
 
 os.environ["WANDB_DISABLED"] = "true"
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

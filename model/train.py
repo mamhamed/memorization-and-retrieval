@@ -59,7 +59,7 @@ class ModelTrainer:
     def train_cpt(self, dataset: Dataset) -> str:
         """Continued Pre-Training"""
         model = AutoModelForCausalLM.from_pretrained(self.model_name,
-							torch_dtype=torch.bfloat16,
+							torch_dtype=torch.float16,
 							low_cpu_mem_usage=True,
 						)
         model.gradient_checkpointing_enable()
@@ -69,7 +69,7 @@ class ModelTrainer:
             num_train_epochs=self.config.num_epochs_cpt,
             per_device_train_batch_size=self.config.batch_size,
             learning_rate=float(self.config.learning_rate_cpt),
-            fsdp="full_shard auto_wrap offload",
+            fsdp="full_shard auto_wrap",
             fsdp_config=self.config.fsdp_config,
             logging_steps=100,
             save_strategy="epoch",
